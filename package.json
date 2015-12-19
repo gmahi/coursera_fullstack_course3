@@ -1,0 +1,11 @@
+﻿{
+  "name": "conFusion",
+  "privat": true,
+  "devDependencies": {
+
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  }
+
+}
