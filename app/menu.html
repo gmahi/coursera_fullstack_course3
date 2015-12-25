@@ -13,7 +13,7 @@
     <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="styles/bootstrap-social.css" rel="stylesheet">
+  <link href="styles/bootstrap-social.css" rel="stylesheet">
     <link href="styles/mystyles.css" rel="stylesheet">
     <!--endbuild-->
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -30,29 +30,31 @@
     <br />
 
     <div class="container">
-        <div class="row row-content" ng-controller="menuController as menuCtrl">
+        <div class="row row-content" ng-controller="MenuController">
             
             <div class="col-xs-12">
-
+                <button ng-click="toggleDetails()" class="btn btn-xs btn-primary pull-right" type="button">
+                    {{showDetails ? 'Hide Details':'Show Details'}}
+                </button>  
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation"
-                        ng-class="{active:menuCtrl.isSelected(1)}">
-                    <a ng-click="menuCtrl.select(1)"
+                        ng-class="{active:isSelected(1)}">
+                    <a ng-click="select(1)"
                        aria-controls="all memu" role="tab">The Menu</a></li>
 
                     <li role="presentation"
-                        ng-class="{active:menuCtrl.isSelected(2)}">
-                        <a  ng-click="menuCtrl.select(2)"
+                        ng-class="{active:isSelected(2)}">
+                        <a  ng-click="select(2)"
                            aria-controls="appetizers" role="tab">Appetizers</a>
                     </li>
                     <li role="presentation"
-                        ng-class="{active:menuCtrl.isSelected(3)}">
-                        <a  ng-click="menuCtrl.select(3)"
+                        ng-class="{active:isSelected(3)}">
+                        <a  ng-click="select(3)"
                            aria-controls="mains" role="tab">Mains</a>
                     </li>
                     <li role="presentation"
-                        ng-class="{active:menuCtrl.isSelected(4)}">
-                        <a  ng-click="menuCtrl.select(4)"
+                        ng-class="{active:isSelected(4)}">
+                        <a  ng-click="select(4)"
                            aria-controls="desserts" role="tab">Desserts</a>
                     </li>
                 </ul>
@@ -62,7 +64,7 @@
 
                 <div class="tab-content">
                     <ul class="media-list tab-pane fade in active">
-                        <li class="media" ng-repeat="dish in menuCtrl.dishes | filter:menuCtrl.filterText">
+                        <li class="media" ng-repeat="dish in dishes | filter:filterText">
                             <div class="media-left media-middle">
                                 <a href="#">
                                     <img class="media-object img-thumbnail" ng-src={{dish.image}} alt="Uthapizza">
@@ -74,7 +76,7 @@
                                     <span class="label label-danger label-xs">{{dish.label}}</span>
                                     <span class="badge">{{dish.price|currency}} </span>
                                 </h2>
-                                <p> {{dish.description}}</p>
+                                <p ng-show="showDetails">{{dish.description}}</p>
                             </div>
                         </li>
                     </ul>
@@ -86,6 +88,8 @@
     <!--build:js scripts/main.js-->
     <script src="../bower_components/angular/angular.min.js"></script>
     <script src="scripts/app.js"></script>
+    <script src="scripts/controllers.js"></script>
+    <script src="scripts/services.js"></script>
     <!--endbuild-->
 </body>
 
