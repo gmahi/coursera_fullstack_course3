@@ -7,8 +7,23 @@ angular.module('confusionApp')
             $scope.tab = 1;
             $scope.filtText = '';
             $scope.showDetails = false;
+            $scope.showMenu = false;
+            $scope.message = "Loading ...";
 
-            $scope.dishes= menuFactory.getDishes();
+            $scope.dishes = {};
+
+            menuFactory.getDishes()
+              .then(
+                function (response) {
+                    $scope.dishes = response.data;
+                    $scope.showMenu = true;
+                },
+                function (response) {
+                    $scope.message = "Error: " + response.status + " " + response.statusText;
+                }
+
+
+            );
 
                         
             $scope.select = function(setTab) {
@@ -70,9 +85,23 @@ angular.module('confusionApp')
 
         .controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory', function($scope, $stateParams, menuFactory) {
 
-            var dish= menuFactory.getDish(parseInt($stateParams.id,10));
+            $scope.dish = {};
+            $scope.showDish = false;
+            $scope.message = "Loading ...";
+
+           menuFactory.getDish(parseInt($stateParams.id, 10))
+           .then(
+              function(response){
+                  $scope.dish = response.data;
+                  $scope.showDish=true;
+              },
+               function (response) {
+                   $scope.message = "Error: " + response.status + " " + response.statusText;
+               }
+          );
             
-            $scope.dish = dish;
+
+          
             
         }])
 
@@ -99,8 +128,22 @@ angular.module('confusionApp')
 
     $scope.chef = corporateFactory.getLeader(3);
     $scope.promotion = menuFactory.getPromotion(0);
-    $scope.featuredDish = menuFactory.getDish(0);
-            
+  
+
+    $scope.featuredDish = {};
+    $scope.showDish = false;
+    $scope.message = "Loading ...";
+
+    menuFactory.getDish(0)
+    .then(
+        function (response) {
+            $scope.featuredDish = response.data;
+            $scope.showDish = true;
+        },
+         function (response) {
+             $scope.message = "Error: " + response.status + " " + response.statusText;
+         }
+    );
 }])
 
 
