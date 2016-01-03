@@ -11,15 +11,13 @@ angular.module('confusionApp')
             $scope.message = "Loading ...";
 
             menuFactory.getDishes().query(
-               function (response) {
-                   $scope.dishes = response;
-                   $scope.showMenu = true;
-               },
-               function (response) {
-                   $scope.message = "Error: " + response.status + " " + response.statusText;
-               });
-
-           
+              function (response) {
+                  $scope.dishes = response;
+                  $scope.showMenu = true;
+              },
+              function (response) {
+                  $scope.message = "Error: " + response.status + " " + response.statusText;
+              });
 
                         
             $scope.select = function(setTab) {
@@ -48,6 +46,7 @@ angular.module('confusionApp')
             };
         }])
 
+
         .controller('ContactController', ['$scope', function($scope) {
 
             $scope.feedback = {mychannel:"", firstName:"", lastName:"", agree:false, email:"" };
@@ -65,7 +64,7 @@ angular.module('confusionApp')
                 
                 console.log($scope.feedback);
                 
-                if ($scope.feedback.agree && ($scope.feedback.mychannel == "")) {
+                if ($scope.feedback.agree && ($scope.feedback.mychannel === "")) {
                     $scope.invalidChannelSelection = true;
                     console.log('incorrect');
                 }
@@ -104,17 +103,17 @@ angular.module('confusionApp')
             $scope.comment = {rating:5, comment:"", author:"", date:""};
             
             $scope.submitComment = function () {
-                
+
                 $scope.comment.date = new Date().toISOString();
                 console.log($scope.comment);
-                
+
                 $scope.dish.comments.push($scope.comment);
                 menuFactory.getDishes().update({ id: $scope.dish.id }, $scope.dish);
-                
+
                 $scope.commentForm.$setPristine();
-                
-                $scope.comment = {rating:5, comment:"", author:"", date:""};
-            }
+
+                $scope.comment = { rating: 5, comment: "", author: "", date: "" };
+            };
         }])
 
 // implement the IndexController and About Controller here
